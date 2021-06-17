@@ -1,0 +1,25 @@
+{
+  "name": "techcombd-ui-designs",
+  "version": "1.0.0",
+  "description": "Tech Com BD UI project",
+  "scripts": {
+    "dev": "postcss tailwind.css -o ./css/styles.css -w --verbose",
+    "build": "postcss tailwind.css -o ./css/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/hard-rox/techcombd-microservices.git"
+  },
+  "author": "Rasedur Rahman Roxy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/hard-rox/techcombd-microservices/issues"
+  },
+  "homepage": "https://gitlab.com/hard-rox/techcombd-microservices#readme",
+  "devDependencies": {
+    "@tailwindcss/jit": "^0.1.18",
+    "autoprefixer": "^10.2.5",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.1.1"
+  }
+}

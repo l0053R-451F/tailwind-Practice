@@ -1,0 +1,17 @@
+﻿@page "/unpublished-events"
+
+@if (events == null)
+{
+    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+}
+else if (events.Count == 0)
+{
+    <p>No data found...</p>
+}
+else
+{
+    foreach (var e in events)
+    {
+        <p>@e.Id - @e.Name</p>
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "Schemas": [
+    {
+      "Name": "EventService",
+      "Type": "http",
+      "File": "EventService.graphql",
+      "Url": "https://localhost:44313/graphql"
+    }
+  ],
+  "ClientName": "EventServiceClient"
+}

@@ -1,0 +1,59 @@
+﻿query getEvents($count: Int!, $after: String, $publishStatus: Boolean!){
+  events(
+    first: $count
+    after: $after
+    where: {
+      isPublished: {eq: $publishStatus}
+    }){
+    nodes{
+      id
+      name
+    }
+    pageInfo{
+      startCursor
+      endCursor
+      hasPreviousPage
+      hasNextPage
+    }
+    totalCount
+  }
+}
+
+query searchEvents($count: Int!, $after: String, $publishStatus: Boolean!, $searchText: String!){
+  events(
+    first: $count
+    after: $after
+    where: {
+      and: [
+        {isPublished: {eq: $publishStatus}}
+        {or:[
+          {about: {contains: $searchText}}
+      		{name: {contains: $searchText}}
+        ]}
+      ]
+    }){
+    nodes{
+      id
+      name
+      about
+    }
+    pageInfo{
+      startCursor
+      endCursor
+      hasPreviousPage
+      hasNextPage
+    }
+    totalCount
+  }
+}
+
+mutation createEvent{
+  createEvent(input: {
+    clientMutationId: ""
+    name: ""
+    about: ""
+    place: ""
+  }){
+    clientMutationId
+  }
+}

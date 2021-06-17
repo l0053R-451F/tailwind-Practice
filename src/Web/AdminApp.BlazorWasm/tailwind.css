@@ -1,0 +1,21 @@
+html, body {
+    font-family: 'Poppins';
+}
+
+#countdown-timer{
+    background: url(../images/countdown-timer-bg.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .brand-container{
+        @apply container mx-auto px-4;
+    }
+}

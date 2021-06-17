@@ -1,0 +1,329 @@
+schema {
+  query: Queries
+  mutation: Mutations
+}
+
+type Event {
+  about: String
+  eventEndDateTimeUtc: DateTime!
+  eventSpeakers: [EventSpeaker]
+  eventStartDateTimeUtc: DateTime!
+  facebookEventUrl: String
+  id: Uuid!
+  isPublished: Boolean!
+  location: String
+  mapUrl: String
+  name: String
+  registrationEndDateTimeUtc: DateTime!
+  registrationStartDateTimeUtc: DateTime!
+  schedules: [Schedule]
+}
+
+input CreateEventCommandInput {
+  about: String!
+  clientMutationId: String
+  name: String!
+  place: String!
+}
+
+input UpdateEventCommandInput {
+  about: String
+  clientMutationId: String
+  id: Uuid!
+  isPublished: Boolean
+  name: String
+  place: String
+}
+
+input AddSpeakerCommandInput {
+  clientMutationId: String
+  eventId: Uuid!
+  speakerName: String
+  speakerProfileId: Uuid!
+  topic: String
+}
+
+enum ApplyPolicy {
+  BEFORE_RESOLVER
+  AFTER_RESOLVER
+}
+
+type Queries {
+  event(id: Uuid!): Event
+  events(after: String before: String first: Int last: Int order: [EventSortInput!] where: EventFilterInput): EventConnection
+}
+
+type Mutations {
+  addSpeaker(input: AddSpeakerCommandInput!): AddSpeakerPayload
+  createEvent(input: CreateEventCommandInput!): CreateEventPayload
+  updateEvent(input: UpdateEventCommandInput!): UpdateEventPayload
+}
+
+type Schedule {
+  createdAtUtc: DateTime!
+  createdBy: String
+  description: String
+  endDateTimeUtc: DateTime
+  entityGuid: Uuid!
+  event: Event
+  eventId: Long!
+  id: Long!
+  lastModifiedAtUtc: DateTime
+  lastModifiedBy: String
+  performerName: String
+  performerProfileId: Uuid
+  startDateTimeUtc: DateTime!
+  title: String
+}
+
+type EventSpeaker {
+  createdAtUtc: DateTime!
+  createdBy: String
+  entityGuid: Uuid!
+  event: Event
+  eventId: Long!
+  id: Long!
+  lastModifiedAtUtc: DateTime
+  lastModifiedBy: String
+  speakerName: String
+  speakerProfileId: Uuid!
+}
+
+input EventFilterInput {
+  about: StringOperationFilterInput
+  and: [EventFilterInput!]
+  eventEndDateTimeUtc: ComparableDateTimeOffsetOperationFilterInput
+  eventSpeakers: ListFilterInputTypeOfEventSpeakerFilterInput
+  eventStartDateTimeUtc: ComparableDateTimeOffsetOperationFilterInput
+  isPublished: BooleanOperationFilterInput
+  location: StringOperationFilterInput
+  name: StringOperationFilterInput
+  or: [EventFilterInput!]
+  registrationEndDateTimeUtc: ComparableDateTimeOffsetOperationFilterInput
+  registrationStartDateTimeUtc: ComparableDateTimeOffsetOperationFilterInput
+  schedules: ListFilterInputTypeOfScheduleFilterInput
+}
+
+input EventSortInput {
+  about: SortEnumType
+  createdAtUtc: SortEnumType
+  createdBy: SortEnumType
+  entityGuid: SortEnumType
+  eventEndDateTimeUtc: SortEnumType
+  eventStartDateTimeUtc: SortEnumType
+  facebookEventUrl: SortEnumType
+  id: SortEnumType
+  isPublished: SortEnumType
+  lastModifiedAtUtc: SortEnumType
+  lastModifiedBy: SortEnumType
+  location: SortEnumType
+  mapUrl: SortEnumType
+  name: SortEnumType
+  registrationEndDateTimeUtc: SortEnumType
+  registrationStartDateTimeUtc: SortEnumType
+}
+
+"A connection to a list of items."
+type EventConnection {
+  "A list of edges."
+  edges: [EventEdge!]
+  "A flattened list of the nodes."
+  nodes: [Event]
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  contains: String
+  endsWith: String
+  eq: String
+  in: [String]
+  ncontains: String
+  nendsWith: String
+  neq: String
+  nin: [String]
+  nstartsWith: String
+  or: [StringOperationFilterInput!]
+  startsWith: String
+}
+
+input ComparableDateTimeOffsetOperationFilterInput {
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  ngt: DateTime
+  ngte: DateTime
+  nin: [DateTime!]
+  nlt: DateTime
+  nlte: DateTime
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input ListFilterInputTypeOfScheduleFilterInput {
+  all: ScheduleFilterInput
+  any: Boolean
+  none: ScheduleFilterInput
+  some: ScheduleFilterInput
+}
+
+input ListFilterInputTypeOfEventSpeakerFilterInput {
+  all: EventSpeakerFilterInput
+  any: Boolean
+  none: EventSpeakerFilterInput
+  some: EventSpeakerFilterInput
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+}
+
+"An edge in a connection."
+type EventEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Event
+}
+
+input ScheduleFilterInput {
+  and: [ScheduleFilterInput!]
+  createdAtUtc: ComparableDateTimeOffsetOperationFilterInput
+  createdBy: StringOperationFilterInput
+  description: StringOperationFilterInput
+  endDateTimeUtc: ComparableNullableOfDateTimeOffsetOperationFilterInput
+  entityGuid: ComparableGuidOperationFilterInput
+  event: EventFilterInput
+  eventId: ComparableInt64OperationFilterInput
+  id: ComparableInt64OperationFilterInput
+  lastModifiedAtUtc: ComparableNullableOfDateTimeOffsetOperationFilterInput
+  lastModifiedBy: StringOperationFilterInput
+  or: [ScheduleFilterInput!]
+  performerName: StringOperationFilterInput
+  performerProfileId: ComparableNullableOfGuidOperationFilterInput
+  startDateTimeUtc: ComparableDateTimeOffsetOperationFilterInput
+  title: StringOperationFilterInput
+}
+
+input EventSpeakerFilterInput {
+  and: [EventSpeakerFilterInput!]
+  createdAtUtc: ComparableDateTimeOffsetOperationFilterInput
+  createdBy: StringOperationFilterInput
+  entityGuid: ComparableGuidOperationFilterInput
+  event: EventFilterInput
+  eventId: ComparableInt64OperationFilterInput
+  id: ComparableInt64OperationFilterInput
+  lastModifiedAtUtc: ComparableNullableOfDateTimeOffsetOperationFilterInput
+  lastModifiedBy: StringOperationFilterInput
+  or: [EventSpeakerFilterInput!]
+  speakerName: StringOperationFilterInput
+  speakerProfileId: ComparableGuidOperationFilterInput
+}
+
+input ComparableInt64OperationFilterInput {
+  eq: Long
+  gt: Long
+  gte: Long
+  in: [Long!]
+  lt: Long
+  lte: Long
+  neq: Long
+  ngt: Long
+  ngte: Long
+  nin: [Long!]
+  nlt: Long
+  nlte: Long
+}
+
+input ComparableNullableOfGuidOperationFilterInput {
+  eq: Uuid
+  gt: Uuid
+  gte: Uuid
+  in: [Uuid]
+  lt: Uuid
+  lte: Uuid
+  neq: Uuid
+  ngt: Uuid
+  ngte: Uuid
+  nin: [Uuid]
+  nlt: Uuid
+  nlte: Uuid
+}
+
+input ComparableNullableOfDateTimeOffsetOperationFilterInput {
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime]
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  ngt: DateTime
+  ngte: DateTime
+  nin: [DateTime]
+  nlt: DateTime
+  nlte: DateTime
+}
+
+input ComparableGuidOperationFilterInput {
+  eq: Uuid
+  gt: Uuid
+  gte: Uuid
+  in: [Uuid!]
+  lt: Uuid
+  lte: Uuid
+  neq: Uuid
+  ngt: Uuid
+  ngte: Uuid
+  nin: [Uuid!]
+  nlt: Uuid
+  nlte: Uuid
+}
+
+type AddSpeakerPayload {
+  clientMutationId: String
+  eventSpeaker: EventSpeaker
+}
+
+type UpdateEventPayload {
+  clientMutationId: String
+  event: Event
+}
+
+type CreateEventPayload {
+  clientMutationId: String
+  event: Event
+}
+
+"The `@defer` directive may be provided for fragment spreads and inline fragments to inform the executor to delay the execution of the current fragment to indicate deprioritization of the current fragment. A query with `@defer` directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred is delivered in a subsequent response. `@include` and `@skip` take precedence over `@defer`."
+directive @defer("Deferred when true." if: Boolean "If this argument label has a value other than null, it will be passed on to the result of this defer directive. This label is intended to give client applications a way to identify to which fragment a deferred result belongs to." label: String) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"The `@stream` directive may be provided for a field of `List` type so that the backend can leverage technology such as asynchronous iterators to provide a partial list in the initial response, and additional list items in subsequent responses. `@include` and `@skip` take precedence over `@stream`."
+directive @stream("Streamed when true." if: Boolean! "The initial elements that shall be send down to the consumer." initialCount: Int! "If this argument label has a value other than null, it will be passed on to the result of this stream directive. This label is intended to give client applications a way to identify to which fragment a streamed result belongs to." label: String) on FIELD
+
+directive @authorize("Defines when when the resolver shall be executed.By default the resolver is executed after the policy has determined that the current user is allowed to access the field." apply: ApplyPolicy! = BEFORE_RESOLVER "The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!]) repeatable on SCHEMA | OBJECT | FIELD_DEFINITION
+
+"The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
+directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR

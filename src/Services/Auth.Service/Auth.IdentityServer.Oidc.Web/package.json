@@ -1,0 +1,16 @@
+{
+  "name": "auth.identityserver.oidc.web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "css:build": "npx tailwind build ./wwwroot/css/base.css -o ./wwwroot/css/site.css"
+  },
+  "author": "Rasedur Rahman Roxy",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.10",
+    "tailwindcss": "^2.1.1"
+  }
+}

@@ -1,0 +1,66 @@
+﻿@using Auth.IdentityServer.Oidc.Web.Models
+
+@model SignupViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+    <title>TechCom BD Auth - Signup</title>
+
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="body-backdrop">
+
+    <div class="flex justify-center">
+        <div class="slider-backdrop flex-1 hidden md:block -mr-8 z-10 my-20 ml-8 mr-0 max-w-md shadow-2xl rounded pl-10 pr-6 py-16">
+            <h1 class="text-4xl font-medium text-white">
+                We Are
+                <span class="font-bold">Consilio Designs</span>
+            </h1>
+            <p class="mt-8 text-white">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam tincidunt morbi
+                purus.
+            </p>
+            <button class="mt-2 text-white ring-1 ring-white px-6 py-2">Learn more</button>
+        </div>
+        <div class="flex-1 my-6 mr-8 ml-0 max-w-md px-16 py-6 bg-white rounded-lg mx-auto">
+            <h1 class="text-black font-semibold text-4xl">Welcome</h1>
+            <p class="mt-6 text-base font-normal text-gray-400">
+                Lorem ipsum dolor sit amet, consectetur adipiscing
+                elit. Diam tincidunt morbi purus.
+            </p>
+            <p class="mt-6 text-base font-normal text-red-600">
+                <partial name="_ValidationSummary" />
+            </p>
+            <form asp-controller="Account" asp-action="Signup" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="mt-6 space-y-4">
+                <input asp-for="Email" class="form-input" placeholder="EMAIL" />
+                <span asp-validation-for="Email" class="text-red-600"></span>
+                <input asp-for="Password" class="form-input" placeholder="PASSWORD" />
+                <span asp-validation-for="Password" class="text-red-600"></span>
+                <input asp-for="ConfirmPassword" class="form-input" placeholder="CONFIRM PASSWORD" />
+                <span asp-validation-for="ConfirmPassword" class="text-red-600"></span>
+                <button type="submit" class="form-submit">SIGNUP</button>
+            </form>
+            <p class="mt-8 mb-4 text-sm text-gray-400 text-center">
+                Already have an account?
+                <a asp-controller="Account" asp-action="Login" class="text-blue-400 font-semibold">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.slim.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+</body>
+</html>
+

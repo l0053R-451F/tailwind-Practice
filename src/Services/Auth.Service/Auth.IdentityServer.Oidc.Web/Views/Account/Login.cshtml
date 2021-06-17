@@ -1,0 +1,100 @@
+@using Auth.IdentityServer.Oidc.Web.Models
+
+@model LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+    <title>TechCom BD Auth - Signup</title>
+
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="has-backdrop">
+
+    <div class="flex justify-center">
+        <div class="flex-1 hidden md:block -mr-8 z-10 my-20 ml-8 mr-0 max-w-md bg-blue-700 shadow-2xl rounded pl-10 pr-6 py-16">
+            <h1 class="text-4xl font-medium text-white">
+                We Are
+                <span class="font-bold">Consilio Designs</span>
+            </h1>
+            <p class="mt-8 text-white">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam tincidunt morbi
+                purus.
+            </p>
+            <button class="mt-2 text-white ring-1 ring-white px-6 py-2">Learn more</button>
+        </div>
+        <div class="flex-1 my-6 mr-8 ml-0 max-w-md px-16 py-6 bg-white rounded-lg mx-auto">
+            <h1 class="text-black font-semibold text-4xl">Welcome</h1>
+            <p class="mt-6 text-base font-normal text-gray-400">
+                Lorem ipsum dolor sit amet, consectetur adipiscing
+                elit. Diam tincidunt morbi purus.
+            </p>
+            <p class="mt-6 text-base font-normal text-red-600">
+                <partial name="_ValidationSummary" />
+            </p>
+            @if (Model.EnableLocalLogin)
+            {
+                <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="mt-6 space-y-4">
+                    <input type="hidden" asp-for="ReturnUrl" />
+                    <input asp-for="Username" class="form-input" placeholder="USERNAME or EMAIL" />
+                    <span asp-validation-for="Username" class="text-red-600"></span>
+                    <input asp-for="Password" class="form-input" placeholder="PASSWORD" />
+                    <span asp-validation-for="Password" class="text-red-600"></span>
+
+                    @if (Model.AllowRememberLogin)
+                    {
+                        <label asp-for="RememberLogin" class="flex items-center">
+                            <input asp-for="RememberLogin" class="">
+                            <span class="ml-2">Remember My Login</span>
+                        </label>
+                    }
+
+                    <button type="submit" class="form-submit" name="button" value="login">LOGIN</button>
+                </form>
+            }
+
+            @*@if (Model.VisibleExternalProviders.Any())
+            {
+                @foreach (var provider in Model.VisibleExternalProviders)
+                {
+                    <li class="list-inline-item">
+                        <a class="btn btn-secondary"
+                           asp-controller="External"
+                           asp-action="Challenge"
+                           asp-route-scheme="@provider.AuthenticationScheme"
+                           asp-route-returnUrl="@Model.ReturnUrl">
+                            @provider.DisplayName
+                        </a>
+                    </li>
+                }
+            }*@
+
+            @if (!Model.EnableLocalLogin && !Model.VisibleExternalProviders.Any())
+            {
+                <div class="alert alert-warning">
+                    <strong>Invalid login request</strong>
+                    There are no login schemes configured for this request.
+                </div>
+            }
+            <p class="mt-8 mb-4 text-sm text-gray-400 text-center">
+                Dont't have an account?
+                <a asp-controller="Account" asp-action="Signup" class="text-blue-400 font-semibold">Signup</a>
+            </p>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.slim.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+</body>
+</html>

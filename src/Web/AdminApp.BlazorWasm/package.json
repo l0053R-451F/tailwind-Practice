@@ -1,0 +1,26 @@
+{
+  "name": "techcombd-admin-app",
+  "version": "1.0.0",
+  "description": "Tech Com BD Admin App project",
+  "scripts": {
+    "build:css": "postcss tailwind.css -o ./wwwroot/css/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/hard-rox/techcombd-microservices.git"
+  },
+  "author": "Rasedur Rahman Roxy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/hard-rox/techcombd-microservices/issues"
+  },
+  "homepage": "https://gitlab.com/hard-rox/techcombd-microservices#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.1.1"
+  },
+  "dependencies": {
+    "cssnano": "^5.0.2"
+  }
+}
